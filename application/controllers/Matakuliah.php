@@ -1,6 +1,10 @@
 <?php
 class Matakuliah extends CI_Controller
 {
+    function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
 
     {
@@ -10,22 +14,38 @@ class Matakuliah extends CI_Controller
     public function cetak()
     
     {
-        $this->form_validation->set_rules('kode', 'Kode Matakuliah',
-        'required|min_lenght[3]', [
-            'required' => 'Kode Matakuliah Harus diisi',
-            'min_lenght' => 'Kode terlalu pendek'
-        ]);
+         $this->form_validation->set_rules(
+            'kode',
+            'Kode',
+            'required|min_length[3]|max_length[5]',
+            array(
+                'requried' => '%s harus diisi.',
+                'min_length' => '%s minimal 3 karakter',
+                'max_length' => '%s maksimal 5 karakter'
+            )
+        );
 
-        $this->form_validation->set_rules('nama', 'Nama Matakuliah',
-        'required|min_lenght[3]', [
-            'required' => 'Nama Matakuliah Harus diisi',
-            'min_lenght' => 'Nama terlalu pendek'
-        ]);
+        $this->form_validation->set_rules(
+            'nama',
+            'Nama',
+            'required|min_length[5]',
+            array(
+                'requried' => '%s harus diisi.',
+                'min_length' => '%s minimal 5 karakter'
 
-        if ($this->form_validation->run() != true) {
+            )
+        );
+
+        $this->form_validation->set_rules(
+            'sks',
+            'SKS',
+            'required',
+            array('requried' => '%s harus diisi.')
+        );
+
+        if ($this->form_validation->run() == FALSE) {
             $this->load->view('view-form-matakuliah');
-        } 
-        else {
+        } else {
             $data = [
                 'kode' => $this->input->post('kode'),
                 'nama' => $this->input->post('nama'),
