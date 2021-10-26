@@ -1,5 +1,5 @@
 <?php
-define('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelBuku extends CI_Model
 {
@@ -43,7 +43,7 @@ class ModelBuku extends CI_Model
     //manajemen kategori
     public function getKategori()
     {
-        return $this->db->get->('kategori');
+        return $this->db->get->{'kategori'};
     }
 
     public function kategoriWhere($where)
